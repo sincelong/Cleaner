@@ -16,6 +16,7 @@ public class Base {
 
 
     public void fresh(Main x) throws SQLException {
+        x.base.removeAll();
         SqliteCon con = SqliteCon.getSqliteCon();
         String[] dbName = con.getDbName();
 
@@ -33,7 +34,7 @@ public class Base {
         }
 
         JLabel newBase = new JLabel("新建数据库");
-        Listener.addNewTabelListenr(newBase, x);
+        Listener.addNewDatabaseListener(newBase, x);
         x.base.add(newBase);
 
         JLabel inPutBase = new JLabel("导入数据库");

@@ -39,7 +39,12 @@ public class Tabel {
             x.tabel.add(tmp);
 //            tabel.add(tmp);
         }
-        x.tabel.add(new JLabel("新建表"));
+        JLabel newTabel = new JLabel("新建表");
+        Listener.addNewTabelListenr(newTabel , x);
+        x.tabel.add(newTabel);
+        Base tmp = new Base();
+        SqliteCon.getSqliteCon().init();
+        tmp.fresh(x);
         x.validate();
     }
 }

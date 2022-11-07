@@ -10,11 +10,24 @@ import com.laplace.Utils.Database;
 
 public class SqliteCon {
 
-    private static SqliteCon con = new SqliteCon();
+    private static SqliteCon con;
+
+    static {
+        try {
+            con = new SqliteCon();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static ArrayList<Connection> c  ;
     private static ArrayList<String>  dbName ;
 
-    private void init() {
+    public void init() throws SQLException {
+        if(c!=null)
+        for(int i  =0 ; i<c.size();++i) {
+            c.get(i).close();
+        }
         dbName =(ArrayList<String>) Database.getDbName("dict");
         c =  new ArrayList<Connection>();
         try {
@@ -29,7 +42,7 @@ public class SqliteCon {
         }
     }
 
-    private SqliteCon() {
+    private SqliteCon() throws SQLException {
         this.init();
     }
 
@@ -61,10 +74,11 @@ public class SqliteCon {
             String line;
             try {
                 while ((line = br.readLine()) != null) {
-                    String[] tmp = line.strip().split(" ");
-                    name.add(tmp[0].strip());
-                    if (tmp.length==2) {
-                        weight.add(Integer.valueOf(tmp[1].strip()));
+                    String[] tmp = line.trim().split(" ");
+                    name.add(tmp[0].trim());
+                    if (tmp.length>=2) {
+                        int len = tmp.length-1;
+                        weight.add(Integer.valueOf(tmp[len].trim()));
                     } else weight.add(new Integer(0));
                 }
             } catch (IOException var10) {
@@ -103,10 +117,10 @@ public class SqliteCon {
        ArrayList<String> name = new ArrayList<String>();
        ArrayList<Integer> weight = new ArrayList<Integer>();
        for(int i = 0;i<pwd.length;++i) {
-           String tmp[] = pwd[i].strip().split(" ");
-           name.add(tmp[0].strip());
+           String tmp[] = pwd[i].trim().split(" ");
+           name.add(tmp[0].trim());
            if (tmp.length==2) {
-               weight.add(Integer.valueOf(tmp[1].strip()));
+               weight.add(Integer.valueOf(tmp[1].trim()));
            } else {
                weight.add(new Integer(0));
            }
@@ -114,4 +128,12 @@ public class SqliteCon {
 
        return Dao.updateTable(SqliteCon.getSqliteCon().getSelectBaseConnection(), name, weight);
    }
+
+   public int getPwdRow() throws SQLException {
+        return Dao.getPwdRow(getSelectBaseConnection());
+   }
+
+    public void newTabel(String all) throws SQLException {
+        Dao.newTabel(getSelectBaseConnection(), all);
+    }
 }

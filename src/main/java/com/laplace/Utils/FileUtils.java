@@ -3,6 +3,7 @@ package com.laplace.Utils;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileUtils {
@@ -27,6 +28,13 @@ public class FileUtils {
             bw.close();
         }catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createFile(String path , String fileName) throws IOException {
+        File file = new File(path + fileName+".db");
+        if(!file.exists()) {
+            file.createNewFile();
         }
     }
 

@@ -13,7 +13,7 @@ public class Main extends JFrame{
 
     public JPanel base;
     public JPanel tabel;
-    public JPanel content;
+    public Content content;
 
     public static int selectBase = 0;
     public static int selectTabel = 0;
@@ -27,11 +27,11 @@ public class Main extends JFrame{
 
         setTitle("字典管理工具 Author:Laplace");
         setVisible(true);
-        setSize(800, 600);
+        setSize(1000, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
          base  = new JPanel();
          tabel = new JPanel();
-         content = new JPanel();
+         content = new Content(this);
 
         add(base, BorderLayout.WEST);
         add(tabel, BorderLayout.CENTER);
@@ -48,7 +48,7 @@ public class Main extends JFrame{
         return tabel;
     }
 
-    public JPanel getContent() {
+    public Content getContent() {
         return content;
     }
 

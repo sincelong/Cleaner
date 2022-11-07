@@ -169,4 +169,13 @@ public class Dao {
         c.commit();
         return list;
     }
+
+    public static void newTabel(Connection c, String all) throws SQLException {
+        String sql = "CREATE TABLE " + "\"" + all + "\"" + " (name  TEXT , weight INT );";
+        System.out.println(sql);
+        Statement st = c.createStatement();
+        st.execute(sql);
+        st.close();
+
+    }
 }
