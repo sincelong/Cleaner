@@ -10,33 +10,32 @@ import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
-public class Base {
+public class Base extends JPanel {
 
-    public static ArrayList<JLabel> baseLabel = new ArrayList<JLabel>();
-
+    public static ArrayList<String> dbName = new ArrayList<String>() ;
 
     public void fresh(Main x) throws SQLException {
-        x.base.removeAll();
+        removeAll();
         SqliteCon con = SqliteCon.getSqliteCon();
-        String[] dbName = con.getDbName();
+        dbName = con.getDbName();
 
-        x.base.setLayout(new GridLayout(max(dbName.length+1, 18), 1));
-        x.base.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setLayout(new GridLayout(max(dbName.size()+1, 18), 1));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        for(int i =0;i<dbName.length;++i) {
-            JLabel tmp  = new JLabel(dbName[i]);
+        for(int i =0;i<dbName.size();++i) {
+            JLabel tmp  = new JLabel(dbName.get(i));
             tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             tmp.setBackground(new Color(224,224,224));
             tmp.setOpaque(false);
             Listener.addBaseListner(tmp, i , x);
-            baseLabel.add(tmp);
-            x.base.add(tmp);
+            add(tmp);
         }
 
         JLabel newBase = new JLabel("新建数据库");
         Listener.addNewDatabaseListener(newBase, x);
-        x.base.add(newBase);
+        add(newBase);
 
         JLabel inPutBase = new JLabel("导入数据库");
+        x.validate();
     }
 }

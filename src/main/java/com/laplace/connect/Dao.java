@@ -1,10 +1,13 @@
 package com.laplace.connect;
 
 import com.laplace.UI.Content;
+import com.laplace.UI.Tabel;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.laplace.UI.Tabel.tbName;
 
 public class Dao {
 
@@ -20,26 +23,21 @@ public class Dao {
         return rowCount;
     }
 
-    public static String[] getTabelName(Connection c) throws SQLException {
-
-        String[] tbName = null;
+    public static void getTabelName(Connection c) throws SQLException {
+        tbName.clear();
         String sql = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;";
         Statement stmt = c.createStatement();
         try {
             ResultSet rs = stmt.executeQuery(sql);
-            tbName = new String[getTabelNameRow(c)];
-            int i =0;
             while(rs.next()) {
-                tbName[i] = rs.getString(1);
-                System.out.println(tbName[i]);
-                ++i;
+                tbName.add(rs.getString(1));
+                System.out.println(rs.getString(1));
             }
         }catch (Exception e) {
             e.printStackTrace();
         }finally {
             stmt.close();
         }
-        return tbName;
     }
 
     public static void main(String[] args) throws SQLException {

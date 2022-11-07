@@ -11,15 +11,12 @@ import static java.lang.Math.max;
 
 public class Main extends JFrame{
 
-    public JPanel base;
-    public JPanel tabel;
+    public Base base;
+    public Tabel tabel;
     public Content content;
 
     public static int selectBase = 0;
     public static int selectTabel = 0;
-
-    public String[] dbName;
-    public static ArrayList<String> tbName = new ArrayList<String>();
 
 
 
@@ -29,13 +26,16 @@ public class Main extends JFrame{
         setVisible(true);
         setSize(1000, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-         base  = new JPanel();
-         tabel = new JPanel();
+         base  = new Base();
+         tabel = new Tabel();
          content = new Content(this);
 
         add(base, BorderLayout.WEST);
+        base.fresh(this);
         add(tabel, BorderLayout.CENTER);
+        tabel.fresh(this);
         add(content, BorderLayout.EAST);
+        content.fresh(this);
 
 
     }

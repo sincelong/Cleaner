@@ -11,40 +11,36 @@ import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
-public class Tabel {
+public class Tabel extends JPanel {
 
 
-//    public ArrayList<JLabel> tabel = new ArrayList<JLabel>();
+    public static ArrayList<String> tbName = new ArrayList<String>() ;
 
-    public  String[] getTabel(Connection c) throws SQLException {
-        return Dao.getTabelName(c);
+    public String selectTable() {
+        String selectTableName = null;
+        if(tbName.size()<=Main.selectTabel) return "";
+        else return tbName.get(Main.selectTabel);
     }
 
     public void fresh(Main x) throws SQLException {
-//        tabel.clear();
-        String[] tbName = getTabel(SqliteCon.getCon().get(x.selectBase));
-        x.tabel.removeAll();
-        x.tbName.clear();
-        x.tabel.setLayout(new GridLayout(max(tbName.length+1, 15), 1));
-        x.tabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        SqliteCon.getSqliteCon().freshTableName();
+        removeAll();
+        setLayout(new GridLayout(max(tbName.size()+3, 15), 1));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        for(int i =0;i<tbName.length;++i) {
-            JLabel tmp  = new JLabel(tbName[i]);
-            System.out.println(tbName[i]);
-            x.tbName.add(tbName[i]);
+        for(int i =0;i<tbName.size();++i) {
+            JLabel tmp  = new JLabel(tbName.get(i));
+            System.out.println(tbName.get(i));
             tmp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             tmp.setBackground(new Color(224,224,224));
             tmp.setOpaque(false);
             Listener.addTabelListener(tmp, i, x);
-            x.tabel.add(tmp);
+            add(tmp);
 //            tabel.add(tmp);
         }
         JLabel newTabel = new JLabel("新建表");
         Listener.addNewTabelListenr(newTabel , x);
-        x.tabel.add(newTabel);
-        Base tmp = new Base();
-        SqliteCon.getSqliteCon().init();
-        tmp.fresh(x);
+        add(newTabel);
         x.validate();
     }
 }

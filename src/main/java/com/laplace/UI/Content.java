@@ -68,9 +68,16 @@ public class Content extends JPanel {
 
     }
 
-    public void fresh(Main x, JLabel jLabel) throws SQLException {
-        String tabelName = jLabel.getText();
-        showTxtPwd.setText(tabelName);
-        showRowNum.setText("当前数据库条数为:"+ SqliteCon.getSqliteCon().getPwdRow());
+    public void fresh(Main x) throws SQLException {
+        String tabelName = x.tabel.selectTable();
+        if(tabelName.equals("")) {
+            showTxtPwd.setText("当前未选中数据库");
+            showRowNum.setText("当前数据库条数为:"+ 0);
+        }
+        else {
+            showTxtPwd.setText(tabelName);
+            showRowNum.setText("当前数据库条数为:"+ SqliteCon.getSqliteCon().getPwdRow());
+        }
+
     }
 }

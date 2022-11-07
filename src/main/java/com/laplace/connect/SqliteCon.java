@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.laplace.UI.Main;
+import com.laplace.UI.Tabel;
 import com.laplace.Utils.Database;
+
+import static com.laplace.UI.Base.dbName;
 
 public class SqliteCon {
 
@@ -21,15 +24,16 @@ public class SqliteCon {
     }
 
     private static ArrayList<Connection> c  ;
-    private static ArrayList<String>  dbName ;
 
     public void init() throws SQLException {
-        if(c!=null)
-        for(int i  =0 ; i<c.size();++i) {
-            c.get(i).close();
+        if(c!=null) {
+            for(int i  =0 ; i<c.size();++i) {
+                c.get(i).close();
+            }
+            c.clear();
         }
-        dbName =(ArrayList<String>) Database.getDbName("dict");
-        c =  new ArrayList<Connection>();
+        dbName = Database.getDbName("dict");
+        if(c==null) c =  new ArrayList<Connection>();
         try {
             for(int i = 0; i < dbName.size();++i) {
                 System.out.println("jdbc:sqlite:dict/"+dbName.get(i));
@@ -46,8 +50,9 @@ public class SqliteCon {
         this.init();
     }
 
-    public static String[] getDbName() throws SQLException {
-        return (String []) dbName.toArray(new String[dbName.size()]);
+    public static ArrayList<String> getDbName() throws SQLException {
+        getSqliteCon().init();
+        return  dbName;
     }
 
 
@@ -100,7 +105,7 @@ public class SqliteCon {
     }
 
     public String getTabelName() {
-        return Main.tbName.get(Main.selectTabel);
+        return Tabel.tbName.get(Main.selectTabel);
     }
 
 
@@ -135,5 +140,9 @@ public class SqliteCon {
 
     public void newTabel(String all) throws SQLException {
         Dao.newTabel(getSelectBaseConnection(), all);
+    }
+
+    public void freshTableName() throws SQLException {
+        Dao.getTabelName(c.get(Main.selectBase));
     }
 }

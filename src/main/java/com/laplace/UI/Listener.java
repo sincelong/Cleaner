@@ -32,7 +32,7 @@ public class Listener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                TextInput input = new TextInput("addWeight");
+                TextInput input = new TextInput("addWeight", j);
             }
         });
     }
@@ -70,7 +70,7 @@ public class Listener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                TextInput textInput = new TextInput("NewTabel");
+                TextInput textInput = new TextInput("NewTabel", j);
             }
         });
     }
@@ -98,9 +98,11 @@ public class Listener {
 
                 public void mouseClicked(MouseEvent e) {
                     Main.selectBase = index;
+                    Main.selectTabel = 0;
                     try {
 
-                        new Tabel().fresh(j);
+                        j.tabel.fresh(j);
+                        j.content.fresh(j);
                         System.out.println(index);
                     } catch (SQLException ex) {
                         ex.printStackTrace();
@@ -119,7 +121,7 @@ public class Listener {
                 Main.selectTabel = index;
                 System.out.println(Main.selectBase +"  " +Main.selectTabel);
                 try {
-                    j.getContent().fresh(j , jLabel);
+                    j.getContent().fresh(j );
 
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -165,7 +167,7 @@ public class Listener {
         });
     }
 
-    public static void addNewDatabaseTextAreaOkButtonListener(JButton btn, TextInput j) {
+    public static void addNewDatabaseTextAreaOkButtonListener(JButton btn, TextInput j, Main x) {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -178,6 +180,11 @@ public class Listener {
                     ex.printStackTrace();
                 }
                 j.dispose();
+                try {
+                    x.base.fresh(x);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
 
         });
@@ -188,7 +195,7 @@ public class Listener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                TextInput textInput = new TextInput("NewDataBase");
+                TextInput textInput = new TextInput("NewDataBase", j);
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             }
         });
