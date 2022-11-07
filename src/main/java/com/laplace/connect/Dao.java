@@ -62,10 +62,11 @@ public class Dao {
     public static int updateTable(Connection c , ArrayList<String> name, ArrayList<Integer> weight) throws SQLException {
         c.setAutoCommit(false);
         String tbName = SqliteCon.getSqliteCon().getTabelName();
+        ArrayList<String> now  = getNumPwd(c , getPwdRow(c));
         int len = name.size();
         for(int i = 0; i < name.size(); ++i) {
-            System.out.println(i+"/"+"len");
-            if( dataExist( c, name.get(i) ) )  {
+            System.out.println(i+"/"+len);
+            if( now.contains(name.get(i)) )  {
                     ArrayList<String[]> tmp = getData(c, name.get(i));
                     addWeight(c, name.get(i) , Integer.valueOf(tmp.get(0)[1])+1 );
             }
