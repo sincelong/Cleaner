@@ -75,7 +75,7 @@ public class Listener {
         });
     }
 
-    public static void addNewTabelTextAreaOkButtonListener(JButton btn, TextInput j){
+    public static void addNewTabelTextAreaOkButtonListener(JButton btn, TextInput j, Main main){
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +87,11 @@ public class Listener {
                     ex.printStackTrace();
                 }
                 j.dispose();
+                try {
+                    main.tabel.fresh(main);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }

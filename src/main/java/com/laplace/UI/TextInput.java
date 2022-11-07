@@ -12,11 +12,11 @@ public class TextInput extends JFrame {
     public TextInput() {};
     public TextInput(String arr , Main j) {
         this.main = j;
-        setSize(700, 530);
+        setSize(700, 550);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        jTextArea = new JTextArea(25, 60);
+        jTextArea = new JTextArea(23, 60);
         jTextAreaPanel = new JPanel();
         jTextAreaPanel.add(new JScrollPane(jTextArea));
 
@@ -26,8 +26,8 @@ public class TextInput extends JFrame {
         ok.setPreferredSize(new Dimension(20, 20));
         if(arr.equals("addWeight")) Listener.addTextAreaOkButtonListener(ok, this);
         if(arr.equals("NewDataBase")) Listener.addNewDatabaseTextAreaOkButtonListener(ok, this, main);
-        if(arr.equals("NewTabel")) Listener.addNewTabelTextAreaOkButtonListener(ok, this);
-            cancel.setPreferredSize(new Dimension(20, 30));
+        if(arr.equals("NewTabel")) Listener.addNewTabelTextAreaOkButtonListener(ok, this, main);
+        cancel.setPreferredSize(new Dimension(20, 40));
         add(jTextAreaPanel, BorderLayout.NORTH);
         add(ok, BorderLayout.CENTER);
         add(cancel, BorderLayout.SOUTH);
