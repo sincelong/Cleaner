@@ -2,10 +2,12 @@ package com.laplace.UI;
 
 import com.laplace.connect.Dao;
 import com.laplace.connect.SqliteCon;
+import org.sqlite.util.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Content extends JPanel {
 
@@ -80,7 +82,9 @@ public class Content extends JPanel {
             showRowNum.setText("当前数据库条数为:"+ 0);
         }
         else {
-            showTxtPwd.setText(tabelName);
+            ArrayList<String> pwd = SqliteCon.getSqliteCon().getNumPwd(20);
+            String res = tabelName + "\n\n" + StringUtils.join(pwd, "\n");
+            showTxtPwd.setText(res);
             showRowNum.setText("当前数据库条数为:"+ SqliteCon.getSqliteCon().getPwdRow());
         }
 
