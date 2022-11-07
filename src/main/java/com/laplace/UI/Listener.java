@@ -3,6 +3,7 @@ package com.laplace.UI;
 import com.laplace.Utils.FileUtils;
 import com.laplace.connect.Dao;
 import com.laplace.connect.SqliteCon;
+import org.sqlite.util.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -149,7 +150,28 @@ public class Listener {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                FileUtils.writePwdFile(jTextField.getText(), pwd);
+                FileUtils.writePwdFile(j.tabel.selectTable()+"_"+jTextField.getText(), pwd);
+            }
+        });
+    }
+
+    public static void addOutPutTextAreaPwdListener(JLabel jLabel , Main j ) {
+        jLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                TextInput textInput = new TextInput("  ", j);
+                ArrayList<String> pwd  = null;
+                Content content =j.getContent();
+                JTextField jTextField = j.content.outPutNum;
+                int len = Integer.valueOf(jTextField.getText());
+                try {
+                    pwd = SqliteCon.getSqliteCon().getNumPwd(len);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                String res = StringUtils.join(pwd, "\n");
+                textInput.jTextArea.setText(res);
             }
         });
     }

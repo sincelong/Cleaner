@@ -18,6 +18,7 @@ public class Content extends JPanel {
     public JTextArea showTxtPwd;
     public JLabel addWeight;
     public JLabel showRowNum;
+    public JLabel outPutTextAreaPwd;
 
 
 
@@ -47,12 +48,16 @@ public class Content extends JPanel {
         infoAction.add(inPutPwd);
         infoAction.add(addWeight);
 
+        //导出到文本框
+        outPutTextAreaPwd = new JLabel("导出到文本框");
         //导出数据库的label
-        outPutPwd = new JLabel("导出数据库");
+        outPutPwd = new JLabel("导出到txt");
         //输入导出数据的条数
         outPutNum = new JTextField(10);
         Listener.addOutPutPwdListener(outPutPwd, j);
+        Listener.addOutPutTextAreaPwdListener(outPutTextAreaPwd, j);
         outPutAction.add(outPutNum);
+        outPutAction.add(outPutTextAreaPwd);
         outPutAction.add(outPutPwd);
 
         //显示数据条数的label
