@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lapalce</groupId>
     <artifactId>Cleaner</artifactId>
-    <version>0.0</version>
+    <version>0.1</version>
     <build>
         <plugins>
             <plugin>
@@ -56,8 +56,8 @@
         </dependency>
     </dependencies>
     <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
     <packaging>jar</packaging>
