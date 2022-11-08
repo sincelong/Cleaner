@@ -18,6 +18,12 @@ public class Main extends JFrame{
     public static int selectBase = 0;
     public static int selectTabel = 0;
 
+    public void freshAll() throws SQLException {
+        base.fresh(this);
+        tabel.fresh(this);
+        content.fresh(this);
+    }
+
 
 
     public Main() throws SQLException {

@@ -38,6 +38,16 @@ public class FileUtils {
         }
     }
 
+    public static void deleteFile(String path , String fileName) {
+        File file = new File(path +File.separator+ fileName);
+        if(file.delete()) {
+            System.out.println("成功删除"+file.getName());
+        }
+        else {
+            System.out.println("删除文件" + file.getName() +"失败");
+        }
+    }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.laplace.UI;
 
+import com.laplace.Utils.Database;
 import com.laplace.Utils.FileUtils;
 import com.laplace.connect.Dao;
 import com.laplace.connect.SqliteCon;
@@ -224,6 +225,22 @@ public class Listener {
                 super.mouseClicked(e);
                 TextInput textInput = new TextInput("NewDataBase", j);
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            }
+        });
+    }
+
+    public static void addDeleteDataBase(JLabel deleteDataBase, Main x) {
+        deleteDataBase.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                try {
+                    SqliteCon.getSqliteCon().deleteSelectBaseConnection();
+                    Database.deleteDataBaseFile();
+                    x.freshAll();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }

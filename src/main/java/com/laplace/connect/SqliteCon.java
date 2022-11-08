@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.laplace.UI.Content;
 import com.laplace.UI.Main;
 import com.laplace.UI.Tabel;
 import com.laplace.Utils.Database;
@@ -45,6 +46,12 @@ public class SqliteCon {
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteSelectBaseConnection() throws SQLException {
+        Connection con = c.get(Main.selectBase);
+        con.close();
+        c.remove(Main.selectBase);
     }
 
     private SqliteCon() throws SQLException {

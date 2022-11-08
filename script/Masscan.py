@@ -1,5 +1,5 @@
 lt = []
-with open ("out.txt", "r+") as f:
+with open ("1.txt", "r+") as f:
     lt = list(f)
 with open("out1.txt", "w+") as f:
     for x in lt :
