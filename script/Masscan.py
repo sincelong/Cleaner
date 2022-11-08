@@ -1,7 +1,7 @@
 lt = []
-with open ("1.txt", "r+") as f:
+with open ("out.txt", "r+") as f:
     lt = list(f)
-with open("out.txt", "w+") as f:
+with open("out1.txt", "w+") as f:
     for x in lt :
         start = x.find('port')+5
         end = x.find('/')

@@ -8,6 +8,7 @@ import java.util.List;
 import com.laplace.UI.Main;
 import com.laplace.UI.Tabel;
 import com.laplace.Utils.Database;
+import org.apache.commons.lang3.*;
 
 import static com.laplace.UI.Base.dbName;
 
@@ -79,12 +80,27 @@ public class SqliteCon {
             String line;
             try {
                 while ((line = br.readLine()) != null) {
-                    String[] tmp = line.trim().split(" ");
-                    name.add(tmp[0].trim());
-                    if (tmp.length>=2) {
-                        int len = tmp.length-1;
-                        weight.add(Integer.valueOf(tmp[len].trim()));
-                    } else weight.add(new Integer(0));
+                    line = line.trim();
+                    int pos = line.lastIndexOf(' ');
+                    System.out.println(line);
+                    if(pos==-1) {
+                        name.add(line);
+                        weight.add(new Integer(0));
+                    }
+                    else {
+                        String num = line.substring(pos+1);
+                        String tmpname = line.substring(0,pos);
+                        if(StringUtils.isNumeric(num)) {
+                            name.add(tmpname);
+                            weight.add(new Integer(Integer.valueOf(num)));
+                        }
+                        else {
+                            name.add(line);
+                            weight.add(new Integer(0));
+                        }
+                    }
+
+
                 }
             } catch (IOException var10) {
                 var10.printStackTrace();
@@ -122,12 +138,24 @@ public class SqliteCon {
        ArrayList<String> name = new ArrayList<String>();
        ArrayList<Integer> weight = new ArrayList<Integer>();
        for(int i = 0;i<pwd.length;++i) {
-           String tmp[] = pwd[i].trim().split(" ");
-           name.add(tmp[0].trim());
-           if (tmp.length==2) {
-               weight.add(Integer.valueOf(tmp[1].trim()));
-           } else {
-               weight.add(new Integer(0));
+           String line = pwd[i];
+           line  = line.trim();
+           int pos = line.lastIndexOf(' ');
+           if(pos==-1) {
+               name.add(line);
+               weight.add(new Integer(1));
+           }
+           else {
+               String num = line.substring(pos+1);
+               String tmpname = line.substring(0,pos );
+               if(StringUtils.isNumeric(num)) {
+                   name.add(tmpname);
+                   weight.add(new Integer(Integer.valueOf(num)));
+               }
+               else {
+                   name.add(line);
+                   weight.add(new Integer(1));
+               }
            }
        }
 

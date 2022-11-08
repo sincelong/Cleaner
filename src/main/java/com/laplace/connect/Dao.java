@@ -46,16 +46,17 @@ public class Dao {
 
     public static  int inPutTable(Connection c, ArrayList<String> name, ArrayList<Integer> weight) throws SQLException {
         c.setAutoCommit(false);
-        Statement st = c.createStatement();
         String tbName = SqliteCon.getSqliteCon().getTabelName();
-        String sql = "INSERT INTO \"" + tbName + "\" (name, weight)" + "VALUES ('%s' , %d)";
+        String sql = "INSERT INTO \"" + tbName + "\" (name, weight)" + "VALUES (? , ?)";
+        PreparedStatement ps = c.prepareStatement(sql);
         for(int i = 0; i < name.size(); ++i) {
-           String  nowSql = String.format(sql, name.get(i), weight.get(i));
-           System.out.println(nowSql);
-           st.execute(nowSql);
+           ps.setString(1, name.get(i));
+           ps.setInt(2, weight.get(i));
+           System.out.println(sql);
+           ps.execute();
         }
+        ps.close();
         c.commit();
-        st.close();
         return name.size();
     }
 
@@ -68,21 +69,22 @@ public class Dao {
             System.out.println(i+"/"+len);
             if( now.contains(name.get(i)) )  {
                     ArrayList<String[]> tmp = getData(c, name.get(i));
-                    addWeight(c, name.get(i) , Integer.valueOf(tmp.get(0)[1])+1 );
+                    addWeight(c, name.get(i) , Integer.valueOf(tmp.get(0)[1])+weight.get(i) );
             }
             else {
-                insertDate(c , name.get(i));
+                insertDate(c , name.get(i) , weight.get(i));
             }
         }
         c.commit();
         return name.size();
     }
 
-    public static String insertDate(Connection c , String name) throws SQLException {
+    public static String insertDate(Connection c , String name, int weight) throws SQLException {
         String tbName = SqliteCon.getSqliteCon().getTabelName();
-        String sql = "INSERT INTO \"" + tbName + "\" (name, weight)" + "VALUES (? , 0)";
+        String sql = "INSERT INTO \"" + tbName + "\" (name, weight)" + "VALUES (? , ?)";
         PreparedStatement st = c.prepareStatement(sql);
         st.setString(1, name);
+        st.setInt(2, weight);
         st.execute();
         st.close();
         return name;
