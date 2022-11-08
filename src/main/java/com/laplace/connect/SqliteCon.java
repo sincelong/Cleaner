@@ -180,4 +180,8 @@ public class SqliteCon {
     public void freshTableName() throws SQLException {
         Dao.getTabelName(c.get(Main.selectBase));
     }
+
+    public void deleteTable() throws SQLException {
+        Dao.deleteTable(getSelectBaseConnection());
+    }
 }

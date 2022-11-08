@@ -1,6 +1,7 @@
 package com.laplace.connect;
 
 import com.laplace.UI.Content;
+import com.laplace.UI.Main;
 import com.laplace.UI.Tabel;
 
 import java.sql.*;
@@ -178,5 +179,14 @@ public class Dao {
         st.execute(sql);
         st.close();
 
+    }
+
+    public static void deleteTable(Connection c) throws SQLException {
+        String name = tbName.get(Main.selectTabel);
+        String sql = "DROP TABLE " + "\"" + name + "\"" ;
+        System.out.println(sql);
+        Statement st = c.createStatement();
+        st.execute(sql);
+        st.close();
     }
 }

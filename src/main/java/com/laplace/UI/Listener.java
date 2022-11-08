@@ -244,4 +244,20 @@ public class Listener {
             }
         });
     }
+
+    public static void addDeleteTable(JLabel deleteTable, Main x) {
+        deleteTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                try {
+                    SqliteCon.getSqliteCon().deleteTable();
+                    x.tabel.fresh(x);
+                    x.content.fresh(x);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
 }
