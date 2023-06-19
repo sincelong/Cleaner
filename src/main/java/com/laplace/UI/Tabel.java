@@ -24,7 +24,13 @@ public class Tabel extends JPanel {
     }
 
     public void fresh(Main x) throws SQLException {
-        SqliteCon.getSqliteCon().freshTableName();
+        //当数据库为0时，显示右侧文本框
+        try {
+            SqliteCon.getSqliteCon().freshTableName();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         removeAll();
         int all = max(tbName.size()+3, 18);
         int cnt =0;
