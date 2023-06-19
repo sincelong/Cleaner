@@ -30,7 +30,7 @@ public class Main extends JFrame{
 
         setTitle("字典管理工具 Author:Laplace");
         setVisible(true);
-        setSize(1000, 600);
+        setSize(1200, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
          base  = new Base();
          tabel = new Tabel();

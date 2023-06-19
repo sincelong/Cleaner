@@ -21,6 +21,7 @@ public class Content extends JPanel {
     public JLabel addWeight;
     public JLabel showRowNum;
     public JLabel outPutTextAreaPwd;
+    public JScrollPane jScrollPane;
 
 
 
@@ -40,7 +41,6 @@ public class Content extends JPanel {
 
 
         setLayout(new BorderLayout());
-        add(showPwd, BorderLayout.CENTER);
         add( outPutAction, BorderLayout.SOUTH);
         add( infoAction, BorderLayout.NORTH);
 
@@ -68,10 +68,11 @@ public class Content extends JPanel {
         outPutAction.add(showRowNum);
 
 
-
-        showTxtPwd = new JTextArea(20,20);
-        showTxtPwd.setPreferredSize(new Dimension(700, 700));
-        showPwd.add(showTxtPwd);
+        showTxtPwd = new JTextArea(20, 80);
+        jScrollPane = new JScrollPane(showTxtPwd);
+        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        showPwd.add(jScrollPane);
+        add(showPwd, BorderLayout.CENTER);
 
 
 
