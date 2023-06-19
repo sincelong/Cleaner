@@ -44,6 +44,7 @@ public class Tabel extends JPanel {
         }
         cnt++;
         JLabel newTabel = new JLabel("新建表");
+        newTabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         Listener.addNewTabelListenr(newTabel , x);
         add(newTabel);
 

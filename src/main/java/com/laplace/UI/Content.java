@@ -38,6 +38,7 @@ public class Content extends JPanel {
 
 
 
+
         setLayout(new BorderLayout());
         add(showPwd, BorderLayout.CENTER);
         add( outPutAction, BorderLayout.SOUTH);
@@ -69,6 +70,7 @@ public class Content extends JPanel {
 
 
         showTxtPwd = new JTextArea(20,20);
+        showTxtPwd.setPreferredSize(new Dimension(700, 700));
         showPwd.add(showTxtPwd);
 
 
